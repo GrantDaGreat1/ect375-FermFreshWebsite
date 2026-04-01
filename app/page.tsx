@@ -255,7 +255,7 @@ export default function Home() {
               Order To-Go
             </a>
             <a
-              href="https://maps.google.com/?q=Terre+Haute+IN"
+              href="https://www.google.com/maps/dir/?api=1&destination=Ferm+Fresh+Terre+Haute+Indiana"
               target="_blank"
               rel="noreferrer"
               className="rounded-full border border-[#113f37] px-5 py-2 text-sm font-bold text-[#113f37] transition hover:-translate-y-0.5"
@@ -283,6 +283,17 @@ export default function Home() {
           Ferm Fresh is a local kombucha company focused on flavor, consistency, and wellness.
           Whether you are grabbing a bottle on your lunch break or refilling a growler for the
           week, we are here to keep Terre Haute stocked with living beverages.
+        </p>
+        <p className="mt-2 text-sm font-semibold text-[#3f3228]">
+          Contact the original Ferm Fresh team here:{' '}
+          <a
+            href="https://fermfreshkombucha.com/contact-us/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[#113f37] underline decoration-2 underline-offset-2"
+          >
+            Ferm Fresh Contact Us
+          </a>
         </p>
       </section>
 
