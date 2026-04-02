@@ -285,9 +285,9 @@ export default function Home() {
           week, we are here to keep Terre Haute stocked with living beverages.
         </p>
         <p className="mt-2 text-sm font-semibold text-[#3f3228]">
-          Contact the original Ferm Fresh team here:{' '}
+          Learn more about Ferm Fresh, Anthony, and Megan here:{' '}
           <a
-            href="https://fermfreshkombucha.com/contact-us/"
+            href="https://fermfreshkombucha.com/"
             target="_blank"
             rel="noreferrer"
             className="text-[#113f37] underline decoration-2 underline-offset-2"
