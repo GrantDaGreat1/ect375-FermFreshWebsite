@@ -21,7 +21,7 @@ type CartState = Record<string, number>;
 
 const INDIANA_SALES_TAX_RATE = 0.07;
 
-const FLAVOR_MENU = [
+const DEFAULT_FLAVOR_MENU = [
   'Blueberry Lavender',
   'Strawberry Charmoile',
   'Butterfly Rose',
@@ -35,7 +35,7 @@ const FLAVOR_MENU = [
   'Sour Pom Apple',
 ];
 
-const SMOOTHIE_FLAVOR_MENU = ['Cherries & Berries', 'Green Machine', 'Tropic Blue', 'Golden Girl'];
+const DEFAULT_SMOOTHIE_FLAVOR_MENU = ['Cherries & Berries', 'Green Machine', 'Tropic Blue', 'Golden Girl'];
 
 const FALLBACK_MENU: MenuItem[] = [
   {
@@ -108,6 +108,8 @@ const OWNER_EDITOR_CODE = process.env.NEXT_PUBLIC_OWNER_EDITOR_CODE || 'fermfres
 
 export default function Home() {
   const [menu, setMenu] = useState<MenuItem[]>(FALLBACK_MENU);
+  const [flavorMenu, setFlavorMenu] = useState<string[]>(DEFAULT_FLAVOR_MENU);
+  const [smoothieFlavorMenu, setSmoothieFlavorMenu] = useState<string[]>(DEFAULT_SMOOTHIE_FLAVOR_MENU);
   const [cart, setCart] = useState<CartState>({});
   const [isLoadingMenu, setIsLoadingMenu] = useState(true);
   const [menuMessage, setMenuMessage] = useState('');
@@ -122,6 +124,10 @@ export default function Home() {
   const [ownerPanelOpen, setOwnerPanelOpen] = useState(false);
   const [ownerCodeInput, setOwnerCodeInput] = useState('');
   const [ownerUnlocked, setOwnerUnlocked] = useState(false);
+  const [flavorEditorInput, setFlavorEditorInput] = useState(DEFAULT_FLAVOR_MENU.join('\n'));
+  const [smoothieFlavorEditorInput, setSmoothieFlavorEditorInput] = useState(
+    DEFAULT_SMOOTHIE_FLAVOR_MENU.join('\n')
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -288,6 +294,26 @@ export default function Home() {
     setMenu((prev) => [newItem, ...prev]);
   }
 
+  function updateFlavorMenus() {
+    const nextKombuchaFlavors = flavorEditorInput
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
+    const nextSmoothieFlavors = smoothieFlavorEditorInput
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (nextKombuchaFlavors.length === 0 || nextSmoothieFlavors.length === 0) {
+      setOwnerMessage('Add at least one flavor for both kombucha and smoothies.');
+      return;
+    }
+
+    setFlavorMenu(nextKombuchaFlavors);
+    setSmoothieFlavorMenu(nextSmoothieFlavors);
+    setOwnerMessage('Flavor menus updated.');
+  }
+
   return (
     <main className="mx-auto grid w-[min(1120px,96vw)] gap-3 py-4 text-[#221d18]">
       <header className="grid gap-3 lg:grid-cols-[1.35fr_0.9fr]">
@@ -371,7 +397,7 @@ export default function Home() {
         <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Flavor Menu</h2>
         <p className="mt-2 text-sm font-semibold text-[#3f3228]">Current kombucha flavors on rotation:</p>
         <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {FLAVOR_MENU.map((flavor) => (
+          {flavorMenu.map((flavor) => (
             <li key={flavor} className="rounded-lg border border-[#d2b48d] bg-[#fff7e6] px-3 py-2 text-sm font-medium text-[#2d251d]">
               {flavor}
             </li>
@@ -380,7 +406,7 @@ export default function Home() {
 
         <p className="mt-4 text-sm font-semibold text-[#3f3228]">Smoothie flavors:</p>
         <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-          {SMOOTHIE_FLAVOR_MENU.map((flavor) => (
+          {smoothieFlavorMenu.map((flavor) => (
             <li key={flavor} className="rounded-lg border border-[#d2b48d] bg-[#fff7e6] px-3 py-2 text-sm font-medium text-[#2d251d]">
               {flavor}
             </li>
@@ -598,6 +624,34 @@ export default function Home() {
                 >
                   Add Item
                 </button>
+                <section className="grid gap-2 rounded-xl border border-[#d8bc97] bg-[#fffaf0] p-3">
+                  <h3 className="font-[var(--font-display)] text-xl font-bold text-[#1f5a4f]">Flavor Lists</h3>
+                  <label className="grid gap-1 text-sm font-semibold text-[#3c3026]">
+                    Kombucha flavors (one per line)
+                    <textarea
+                      rows={6}
+                      className="rounded-lg border border-[#bf9e74] bg-[#fffdf8] px-3 py-2 text-sm"
+                      value={flavorEditorInput}
+                      onChange={(event) => setFlavorEditorInput(event.target.value)}
+                    />
+                  </label>
+                  <label className="grid gap-1 text-sm font-semibold text-[#3c3026]">
+                    Smoothie flavors (one per line)
+                    <textarea
+                      rows={4}
+                      className="rounded-lg border border-[#bf9e74] bg-[#fffdf8] px-3 py-2 text-sm"
+                      value={smoothieFlavorEditorInput}
+                      onChange={(event) => setSmoothieFlavorEditorInput(event.target.value)}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="w-fit rounded-full border border-[#113f37] px-4 py-2 text-sm font-bold text-[#113f37]"
+                    onClick={updateFlavorMenus}
+                  >
+                    Update Flavor Menus
+                  </button>
+                </section>
                 <div className="grid gap-2">
                   {menu.map((item) => (
                     <article key={item.id} className="grid gap-2 rounded-xl border border-[#d8bc97] bg-[#fffaf0] p-3">
