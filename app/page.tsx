@@ -1,7 +1,12 @@
 'use client';
 
 import { FormEvent, useEffect, useMemo, useState } from 'react';
+import Image from 'next/image';
 import { supabase } from '../lib/supabase';
+import frontWelcomeImage from '../img/front welcome.jpeg';
+import frontImage from '../img/front.jpeg';
+import insideImage from '../img/inside.jpeg';
+import insideTwoImage from '../img/inside 2.jpeg';
 
 type MenuItem = {
   id: string;
@@ -14,44 +19,86 @@ type MenuItem = {
 
 type CartState = Record<string, number>;
 
+const INDIANA_SALES_TAX_RATE = 0.07;
+
+const FLAVOR_MENU = [
+  'Blueberry Lavender',
+  'Strawberry Charmoile',
+  'Butterfly Rose',
+  'Mango Hops',
+  'Hibiscus Lemonade',
+  'Elderflower Orange',
+  'Ginger',
+  'Cranberry',
+  'Peach',
+  'Jungle Juice',
+  'Sour Pom Apple',
+];
+
+const SMOOTHIE_FLAVOR_MENU = ['Cherries & Berries', 'Green Machine', 'Tropic Blue', 'Golden Girl'];
+
 const FALLBACK_MENU: MenuItem[] = [
   {
-    id: 'classic-original',
-    name: 'Classic Original Kombucha',
-    description: 'Crisp, tart, and lightly effervescent. Our house favorite for first-time tasters.',
+    id: 'kombucha-8oz',
+    name: 'Kombucha (8oz)',
+    description: 'Fresh-brewed kombucha in an 8oz serving.',
+    price: 4,
+    category: 'Kombucha',
+    is_available: true,
+  },
+  {
+    id: 'kombucha-16oz',
+    name: 'Kombucha (16oz)',
+    description: 'Fresh-brewed kombucha in a 16oz serving.',
     price: 6,
     category: 'Kombucha',
     is_available: true,
   },
   {
-    id: 'ginger-lime',
-    name: 'Ginger Lime Kombucha',
-    description: 'Fresh ginger warmth balanced with bright citrus finish.',
-    price: 7,
+    id: 'kombucha-slushie',
+    name: 'Slushie',
+    description: 'Frozen kombucha slushie for a bright, refreshing treat.',
+    price: 7.5,
     category: 'Kombucha',
     is_available: true,
   },
   {
-    id: 'berry-bloom',
-    name: 'Berry Bloom Kombucha',
-    description: 'A fruit-forward pour layered with blackberry and hibiscus notes.',
-    price: 7,
+    id: 'kombucha-smoothie',
+    name: 'Smoothie',
+    description: 'Kombucha smoothie blended smooth and served chilled. Add protein and collagen for $2. Non-dairy options are available.',
+    price: 8,
     category: 'Kombucha',
     is_available: true,
   },
   {
-    id: 'growler-refill',
-    name: 'Growler Refill',
-    description: 'Bring your clean Ferm Fresh growler and refill with any tap flavor.',
-    price: 14,
+    id: 'growler-refill-16oz',
+    name: 'Growler Refill (16oz)',
+    description: '16oz refill. Bring your clean Ferm Fresh growler and choose any tap flavor.',
+    price: 6,
+    category: 'Refills',
+    is_available: true,
+  },
+  {
+    id: 'growler-refill-32oz',
+    name: 'Growler Refill (32oz)',
+    description: '32oz refill. Bring your clean Ferm Fresh growler and choose any tap flavor.',
+    price: 18,
+    category: 'Refills',
+    is_available: true,
+  },
+  {
+    id: 'growler-refill-64oz',
+    name: 'Growler Refill (64oz)',
+    description: '64oz refill. Bring your clean Ferm Fresh growler and choose any tap flavor.',
+    price: 25,
     category: 'Refills',
     is_available: true,
   },
   {
     id: 'flight-kit',
     name: 'Flavor Flight Kit',
-    description: 'Four rotating 8oz pours packed for easy pickup and tasting.',
-    price: 16,
+    description: 'Choose six flavors to try in 2oz glasses! Perfect for tasting or sharing with a friend.',
+    price: 10,
     category: 'Specials',
     is_available: true,
   },
@@ -131,9 +178,17 @@ export default function Home() {
       .map((item) => ({ ...item, quantity: cart[item.id] }));
   }, [cart, menu]);
 
-  const cartTotal = useMemo(() => {
+  const cartSubtotal = useMemo(() => {
     return cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }, [cartItems]);
+
+  const salesTax = useMemo(() => {
+    return Math.round(cartSubtotal * INDIANA_SALES_TAX_RATE * 100) / 100;
+  }, [cartSubtotal]);
+
+  const orderTotal = useMemo(() => {
+    return Math.round((cartSubtotal + salesTax) * 100) / 100;
+  }, [cartSubtotal, salesTax]);
 
   function changeQuantity(itemId: string, amount: number) {
     setCart((prev) => {
@@ -167,14 +222,14 @@ export default function Home() {
         qty: item.quantity,
         price: item.price,
       })),
-      total: cartTotal,
+      total: orderTotal,
       status: 'new',
     };
 
     const { error } = await supabase.from('orders').insert(payload);
 
     if (error) {
-      setOrderMessage('Order saved locally only. Please call Ferm Fresh at (812) 555-0139 to confirm.');
+      setOrderMessage('Order saved locally only. Please stop by Ferm Fresh at 1616 Poplar St, Terre Haute, IN 47803 to confirm.');
       return;
     }
 
@@ -268,11 +323,16 @@ export default function Home() {
         <aside className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:110ms] rounded-2xl border border-[#255347] bg-gradient-to-b from-[#1b4e45] to-[#143a33] p-5 text-[#f3e8d2] shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
           <h2 className="font-[var(--font-display)] text-2xl font-bold">Visit Ferm Fresh</h2>
           <p>Terre Haute, Indiana</p>
-          <p>Mon - Fri: 11:00 AM - 7:00 PM</p>
-          <p>Sat: 10:00 AM - 5:00 PM</p>
-          <p>Sun: Closed</p>
-          <a className="mt-2 inline-block font-semibold underline decoration-2" href="tel:+18125550139">
-            Call for same-day pickup: (812) 555-0139
+          <p>Thurs: 12:00 PM - 5:00 PM</p>
+          <p>Fri: 12:00 PM - 5:00 PM</p>
+          <p>Sat: 12:00 PM - 5:00 PM</p>
+          <a
+            className="mt-2 inline-block font-semibold underline decoration-2"
+            href="https://www.google.com/maps/search/?api=1&query=1616+Poplar+St,+Terre+Haute,+IN+47803"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Pickup address: 1616 Poplar St, Terre Haute, IN 47803
           </a>
         </aside>
       </header>
@@ -295,6 +355,47 @@ export default function Home() {
             Ferm Fresh Contact Us
           </a>
         </p>
+      </section>
+
+      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:155ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
+        <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Flavor Menu</h2>
+        <p className="mt-2 text-sm font-semibold text-[#3f3228]">Current kombucha flavors on rotation:</p>
+        <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+          {FLAVOR_MENU.map((flavor) => (
+            <li key={flavor} className="rounded-lg border border-[#d2b48d] bg-[#fff7e6] px-3 py-2 text-sm font-medium text-[#2d251d]">
+              {flavor}
+            </li>
+          ))}
+        </ul>
+
+        <p className="mt-4 text-sm font-semibold text-[#3f3228]">Smoothie flavors:</p>
+        <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {SMOOTHIE_FLAVOR_MENU.map((flavor) => (
+            <li key={flavor} className="rounded-lg border border-[#d2b48d] bg-[#fff7e6] px-3 py-2 text-sm font-medium text-[#2d251d]">
+              {flavor}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:165ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
+        <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Inside Ferm Fresh</h2>
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#3f3228]">
+          A few photos from the front entrance and inside the shop to give the page a warmer, more inviting feel.
+        </p>
+        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {[
+            { src: frontWelcomeImage, alt: 'Front of Ferm Fresh with welcome sign', caption: 'Front welcome' },
+            { src: frontImage, alt: 'Front of Ferm Fresh store exterior', caption: 'Front of store' },
+            { src: insideImage, alt: 'Inside Ferm Fresh shop interior', caption: 'Inside view' },
+            { src: insideTwoImage, alt: 'Another interior photo of Ferm Fresh', caption: 'Inside view two' },
+          ].map((image) => (
+            <figure key={image.caption} className="overflow-hidden rounded-xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
+              <Image src={image.src} alt={image.alt} className="h-56 w-full object-cover" />
+              <figcaption className="px-3 py-2 text-sm font-semibold text-[#2d251d]">{image.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
       <section id="order" className="grid gap-3 lg:grid-cols-[1.35fr_0.92fr]">
@@ -361,7 +462,20 @@ export default function Home() {
             ))}
           </ul>
 
-          <p className="mb-3 mt-3 font-bold">Total: ${cartTotal.toFixed(2)}</p>
+          <div className="mb-3 mt-3 grid gap-1 text-sm">
+            <p className="flex justify-between">
+              <span>Subtotal</span>
+              <span>${cartSubtotal.toFixed(2)}</span>
+            </p>
+            <p className="flex justify-between">
+              <span>Indiana sales tax (7%)</span>
+              <span>${salesTax.toFixed(2)}</span>
+            </p>
+            <p className="flex justify-between font-bold text-base">
+              <span>Total</span>
+              <span>${orderTotal.toFixed(2)}</span>
+            </p>
+          </div>
 
           <form onSubmit={submitOrder} className="grid gap-2">
             <label className="grid gap-1 text-sm font-semibold text-[#3c3026]">
