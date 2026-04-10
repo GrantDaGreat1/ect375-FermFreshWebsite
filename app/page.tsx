@@ -323,7 +323,9 @@ export default function Home() {
             </div>
 
             <figure className="overflow-hidden rounded-2xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
-              <Image src={frontImage} alt="Front of Ferm Fresh store exterior" className="h-56 w-full object-cover lg:h-full" />
+              <a href={frontImage.src} target="_blank" rel="noreferrer" className="block" title="View full image">
+                <Image src={frontImage} alt="Front of Ferm Fresh store exterior" className="h-56 w-full object-cover lg:h-full" />
+              </a>
             </figure>
           </div>
         </div>
@@ -416,7 +418,9 @@ export default function Home() {
               { src: frontImage, alt: 'Front of Ferm Fresh store exterior' },
             ].map((image) => (
               <figure key={image.alt} className="overflow-hidden rounded-xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
-                <Image src={image.src} alt={image.alt} className="h-32 w-full object-cover" />
+                <a href={image.src.src} target="_blank" rel="noreferrer" className="block" title="View full image">
+                  <Image src={image.src} alt={image.alt} className="h-32 w-full object-cover" />
+                </a>
               </figure>
             ))}
           </div>
