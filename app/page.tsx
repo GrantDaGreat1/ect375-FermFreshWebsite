@@ -292,31 +292,39 @@ export default function Home() {
     <main className="mx-auto grid w-[min(1120px,96vw)] gap-3 py-4 text-[#221d18]">
       <header className="grid gap-3 lg:grid-cols-[1.35fr_0.9fr]">
         <div className="animate-[fadeup_0.55s_ease_forwards] rounded-2xl border border-[#c99a61] bg-gradient-to-br from-[#ffefd1] via-[#f3d19b] to-[#ecc286] p-6 shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
-          <p className="mb-2 inline-block rounded-full border border-[#1f5a4f]/40 bg-[#f4e4c2] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5a4f]">
-            Terre Haute Crafted Kombucha
-          </p>
-          <h1 className="font-[var(--font-display)] text-5xl font-extrabold leading-none text-[#113f37] sm:text-6xl">
-            Ferm Fresh
-          </h1>
-          <p className="mt-3 max-w-2xl text-[1.02rem] leading-relaxed text-[#2d251d]">
-            Fresh-brewed kombucha made in small batches for our local community. We keep it simple:
-            clean ingredients, rotating flavors, and fast to-go pickup.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <a
-              href="#order"
-              className="rounded-full bg-[#113f37] px-5 py-2 text-sm font-bold text-[#fdf6e9] transition hover:-translate-y-0.5"
-            >
-              Order To-Go
-            </a>
-            <a
-              href="https://www.google.com/maps/dir/?api=1&destination=Ferm+Fresh+Terre+Haute+Indiana"
-              target="_blank"
-              rel="noreferrer"
-              className="rounded-full border border-[#113f37] px-5 py-2 text-sm font-bold text-[#113f37] transition hover:-translate-y-0.5"
-            >
-              Find Us
-            </a>
+          <div className="grid gap-4 lg:grid-cols-[1fr_220px] lg:items-center">
+            <div>
+              <p className="mb-2 inline-block rounded-full border border-[#1f5a4f]/40 bg-[#f4e4c2] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5a4f]">
+                Terre Haute Crafted Kombucha
+              </p>
+              <h1 className="font-[var(--font-display)] text-5xl font-extrabold leading-none text-[#113f37] sm:text-6xl">
+                Ferm Fresh
+              </h1>
+              <p className="mt-3 max-w-2xl text-[1.02rem] leading-relaxed text-[#2d251d]">
+                Fresh-brewed kombucha made in small batches for our local community. We keep it simple:
+                clean ingredients, rotating flavors, and fast to-go pickup.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <a
+                  href="#order"
+                  className="rounded-full bg-[#113f37] px-5 py-2 text-sm font-bold text-[#fdf6e9] transition hover:-translate-y-0.5"
+                >
+                  Order To-Go
+                </a>
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Ferm+Fresh+Terre+Haute+Indiana"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-[#113f37] px-5 py-2 text-sm font-bold text-[#113f37] transition hover:-translate-y-0.5"
+                >
+                  Find Us
+                </a>
+              </div>
+            </div>
+
+            <figure className="overflow-hidden rounded-2xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
+              <Image src={frontImage} alt="Front of Ferm Fresh store exterior" className="h-56 w-full object-cover lg:h-full" />
+            </figure>
           </div>
         </div>
 
@@ -379,22 +387,39 @@ export default function Home() {
       </section>
 
       <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:165ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
-        <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Inside Ferm Fresh</h2>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-[#3f3228]">
-          A few photos from the front entrance and inside the shop to give the page a warmer, more inviting feel.
-        </p>
-        <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {[
-            { src: frontWelcomeImage, alt: 'Front of Ferm Fresh with welcome sign', caption: 'Front welcome' },
-            { src: frontImage, alt: 'Front of Ferm Fresh store exterior', caption: 'Front of store' },
-            { src: insideImage, alt: 'Inside Ferm Fresh shop interior', caption: 'Inside view' },
-            { src: insideTwoImage, alt: 'Another interior photo of Ferm Fresh', caption: 'Inside view two' },
-          ].map((image) => (
-            <figure key={image.caption} className="overflow-hidden rounded-xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
-              <Image src={image.src} alt={image.alt} className="h-56 w-full object-cover" />
-              <figcaption className="px-3 py-2 text-sm font-semibold text-[#2d251d]">{image.caption}</figcaption>
-            </figure>
-          ))}
+        <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div>
+            <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">What Is Ferm Fresh?</h2>
+            <p className="mt-2 max-w-4xl leading-relaxed">
+              Ferm Fresh is a local kombucha company focused on flavor, consistency, and wellness.
+              Whether you are grabbing a bottle on your lunch break or refilling a growler for the
+              week, we are here to keep Terre Haute stocked with living beverages.
+            </p>
+            <p className="mt-2 text-sm font-semibold text-[#3f3228]">
+              Learn more about Ferm Fresh, Anthony, and Megan here:{' '}
+              <a
+                href="https://fermfreshkombucha.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#113f37] underline decoration-2 underline-offset-2"
+              >
+                Ferm Fresh Contact Us
+              </a>
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { src: frontWelcomeImage, alt: 'Front of Ferm Fresh with welcome sign' },
+              { src: insideImage, alt: 'Inside Ferm Fresh shop interior' },
+              { src: insideTwoImage, alt: 'Another interior photo of Ferm Fresh' },
+              { src: frontImage, alt: 'Front of Ferm Fresh store exterior' },
+            ].map((image) => (
+              <figure key={image.alt} className="overflow-hidden rounded-xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
+                <Image src={image.src} alt={image.alt} className="h-32 w-full object-cover" />
+              </figure>
+            ))}
+          </div>
         </div>
       </section>
 
