@@ -73,7 +73,7 @@ const FALLBACK_MENU: MenuItem[] = [
   {
     id: 'growler-refill-16oz',
     name: 'Growler Refill (16oz)',
-    description: '16oz refill. Bring your clean Ferm Fresh growler and choose any tap flavor.',
+    description: '16oz refill. Bring your Ferm Fresh growler and choose any tap flavor.',
     price: 6,
     category: 'Refills',
     is_available: true,
@@ -81,7 +81,7 @@ const FALLBACK_MENU: MenuItem[] = [
   {
     id: 'growler-refill-32oz',
     name: 'Growler Refill (32oz)',
-    description: '32oz refill. Bring your clean Ferm Fresh growler and choose any tap flavor.',
+    description: '32oz refill. Bring your Ferm Fresh growler and choose any tap flavor.',
     price: 18,
     category: 'Refills',
     is_available: true,
@@ -89,7 +89,7 @@ const FALLBACK_MENU: MenuItem[] = [
   {
     id: 'growler-refill-64oz',
     name: 'Growler Refill (64oz)',
-    description: '64oz refill. Bring your clean Ferm Fresh growler and choose any tap flavor.',
+    description: '64oz refill. Bring your Ferm Fresh growler and choose any tap flavor.',
     price: 25,
     category: 'Refills',
     is_available: true,
