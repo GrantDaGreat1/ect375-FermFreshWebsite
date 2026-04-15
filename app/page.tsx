@@ -388,7 +388,7 @@ export default function Home() {
             rel="noreferrer"
             className="text-[#113f37] underline decoration-2 underline-offset-2"
           >
-            Ferm Fresh Contact Us
+            fermfreshkombucha.com
           </a>
         </p>
       </section>
@@ -431,7 +431,7 @@ export default function Home() {
                 rel="noreferrer"
                 className="text-[#113f37] underline decoration-2 underline-offset-2"
               >
-                Ferm Fresh Contact Us
+                fermfreshkombucha.com
               </a>
             </p>
           </div>
