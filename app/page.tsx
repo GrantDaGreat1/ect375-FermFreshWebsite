@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { supabase } from '../lib/supabase';
+import fermFreshLogo from '../img/FermFreshLogo.png';
 import frontWelcomeImage from '../img/front welcome.jpeg';
 import frontImage from '../img/front.jpeg';
 import insideImage from '../img/inside.jpeg';
@@ -235,7 +236,9 @@ export default function Home() {
     const { error } = await supabase.from('orders').insert(payload);
 
     if (error) {
-      setOrderMessage('Order saved locally only. Please stop by Ferm Fresh at 1616 Poplar St, Terre Haute, IN 47803 to confirm.');
+      setOrderMessage(
+        'Order saved locally only. Please stop by Ferm Fresh at 1616 Poplar St, Terre Haute, IN 47803 or call 812-645-3857 to confirm.'
+      );
       return;
     }
 
@@ -323,6 +326,12 @@ export default function Home() {
               <p className="mb-2 inline-block rounded-full border border-[#1f5a4f]/40 bg-[#f4e4c2] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5a4f]">
                 Terre Haute Crafted Kombucha
               </p>
+              <Image
+                src={fermFreshLogo}
+                alt="Ferm Fresh logo"
+                className="mb-3 h-auto w-[170px] sm:w-[210px]"
+                priority
+              />
               <h1 className="font-[var(--font-display)] text-5xl font-extrabold leading-none text-[#113f37] sm:text-6xl">
                 Ferm Fresh
               </h1>
@@ -359,8 +368,9 @@ export default function Home() {
         <aside className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:110ms] rounded-2xl border border-[#255347] bg-gradient-to-b from-[#1b4e45] to-[#143a33] p-5 text-[#f3e8d2] shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
           <h2 className="font-[var(--font-display)] text-2xl font-bold">Visit Ferm Fresh</h2>
           <p>Terre Haute, Indiana</p>
+          <p>Phone: 812-645-3857</p>
           <p>Thurs: 12:00 PM - 5:00 PM</p>
-          <p>Fri: 12:00 PM - 5:00 PM</p>
+          <p>Fri: 12:00 PM - 5:00 PM</p> 
           <p>Sat: 12:00 PM - 5:00 PM</p>
           <a
             className="mt-2 inline-block font-semibold underline decoration-2"
@@ -370,6 +380,24 @@ export default function Home() {
           >
             Pickup address: 1616 Poplar St, Terre Haute, IN 47803
           </a>
+          <div className="mt-2 flex flex-wrap gap-3 text-sm font-semibold">
+            <a
+              href="https://www.facebook.com/fermfresh"
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-2"
+            >
+              Facebook
+            </a>
+            <a
+              href="https://www.instagram.com/fermfresh/?hl=en"
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-2"
+            >
+              Instagram
+            </a>
+          </div>
         </aside>
       </header>
 
@@ -396,6 +424,9 @@ export default function Home() {
       <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:155ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
         <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Flavor Menu</h2>
         <p className="mt-2 text-sm font-semibold text-[#3f3228]">Current kombucha flavors on rotation:</p>
+        <p className="mt-1 text-sm text-[#5b4630]">
+          Flavors change weekly, so the current list may not always be fully up to date.
+        </p>
         <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {flavorMenu.map((flavor) => (
             <li key={flavor} className="rounded-lg border border-[#d2b48d] bg-[#fff7e6] px-3 py-2 text-sm font-medium text-[#2d251d]">
