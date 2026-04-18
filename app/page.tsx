@@ -318,10 +318,10 @@ export default function Home() {
   }
 
   return (
-    <main className="mx-auto grid w-[min(1120px,96vw)] gap-3 py-4 text-[#221d18]">
-      <header className="grid gap-3 lg:grid-cols-[1.35fr_0.9fr]">
-        <div className="animate-[fadeup_0.55s_ease_forwards] rounded-2xl border border-[#c99a61] bg-gradient-to-br from-[#ffefd1] via-[#f3d19b] to-[#ecc286] p-6 shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
-          <div className="grid gap-4 lg:grid-cols-[1fr_220px] lg:items-center">
+    <main className="mx-auto grid w-[min(1120px,96vw)] gap-2 py-2 text-[#221d18]">
+      <header className="grid gap-2 lg:grid-cols-[1.35fr_0.9fr]">
+        <div className="animate-[fadeup_0.55s_ease_forwards] rounded-2xl border border-[#c99a61] bg-gradient-to-br from-[#ffefd1] via-[#f3d19b] to-[#ecc286] p-5 shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
+          <div className="grid gap-3 lg:grid-cols-[1fr_220px] lg:items-center">
             <div>
               <p className="mb-2 inline-block rounded-full border border-[#1f5a4f]/40 bg-[#f4e4c2] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#1f5a4f]">
                 Terre Haute Crafted Kombucha
@@ -365,7 +365,7 @@ export default function Home() {
           </div>
         </div>
 
-        <aside className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:110ms] rounded-2xl border border-[#255347] bg-gradient-to-b from-[#1b4e45] to-[#143a33] p-5 text-[#f3e8d2] shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
+        <aside className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:110ms] rounded-2xl border border-[#255347] bg-gradient-to-b from-[#1b4e45] to-[#143a33] p-4 text-[#f3e8d2] shadow-[0_14px_24px_rgba(15,32,26,0.18)]">
           <h2 className="font-[var(--font-display)] text-2xl font-bold">Visit Ferm Fresh</h2>
           <p>Terre Haute, Indiana</p>
           <p>Phone: 812-645-3857</p>
@@ -401,27 +401,46 @@ export default function Home() {
         </aside>
       </header>
 
-      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:140ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
-        <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">What Is Ferm Fresh?</h2>
-        <p className="mt-2 max-w-4xl leading-relaxed">
-          Ferm Fresh is a local kombucha company focused on flavor, consistency, and wellness.
-          Whether you are grabbing a bottle on your lunch break or refilling a growler for the
-          week, we are here to keep Terre Haute stocked with living beverages.
-        </p>
-        <p className="mt-2 text-sm font-semibold text-[#3f3228]">
-          Learn more about Ferm Fresh, Anthony, and Megan here:{' '}
-          <a
-            href="https://fermfreshkombucha.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="text-[#113f37] underline decoration-2 underline-offset-2"
-          >
-            fermfreshkombucha.com
-          </a>
-        </p>
+      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:140ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-4 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
+        <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div>
+            <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">About Ferm Fresh</h2>
+            <p className="mt-2 max-w-4xl leading-relaxed">
+              Ferm Fresh is a local kombucha company focused on flavor, consistency, and wellness.
+              Whether you are grabbing a bottle on your lunch break or refilling a growler for the
+              week, we are here to keep Terre Haute stocked with living beverages.
+            </p>
+            <p className="mt-2 text-sm font-semibold text-[#3f3228]">
+              Learn more about Ferm Fresh, Anthony, and Megan here:{' '}
+              <a
+                href="https://fermfreshkombucha.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#113f37] underline decoration-2 underline-offset-2"
+              >
+                fermfreshkombucha.com
+              </a>
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { src: frontWelcomeImage, alt: 'Front of Ferm Fresh with welcome sign' },
+              { src: insideImage, alt: 'Inside Ferm Fresh shop interior' },
+              { src: insideTwoImage, alt: 'Another interior photo of Ferm Fresh' },
+              { src: frontImage, alt: 'Front of Ferm Fresh store exterior' },
+            ].map((image) => (
+              <figure key={image.alt} className="overflow-hidden rounded-xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
+                <a href={image.src.src} target="_blank" rel="noreferrer" className="block" title="View full image">
+                  <Image src={image.src} alt={image.alt} className="h-28 w-full object-cover" />
+                </a>
+              </figure>
+            ))}
+          </div>
+        </div>
       </section>
 
-      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:155ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
+      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:155ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-4 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
         <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Flavor Menu</h2>
         <p className="mt-2 text-sm font-semibold text-[#3f3228]">Current kombucha flavors on rotation:</p>
         <p className="mt-1 text-sm text-[#5b4630]">
@@ -445,46 +464,7 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:165ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-5 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
-        <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-          <div>
-            <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">What Is Ferm Fresh?</h2>
-            <p className="mt-2 max-w-4xl leading-relaxed">
-              Ferm Fresh is a local kombucha company focused on flavor, consistency, and wellness.
-              Whether you are grabbing a bottle on your lunch break or refilling a growler for the
-              week, we are here to keep Terre Haute stocked with living beverages.
-            </p>
-            <p className="mt-2 text-sm font-semibold text-[#3f3228]">
-              Learn more about Ferm Fresh, Anthony, and Megan here:{' '}
-              <a
-                href="https://fermfreshkombucha.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#113f37] underline decoration-2 underline-offset-2"
-              >
-                fermfreshkombucha.com
-              </a>
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { src: frontWelcomeImage, alt: 'Front of Ferm Fresh with welcome sign' },
-              { src: insideImage, alt: 'Inside Ferm Fresh shop interior' },
-              { src: insideTwoImage, alt: 'Another interior photo of Ferm Fresh' },
-              { src: frontImage, alt: 'Front of Ferm Fresh store exterior' },
-            ].map((image) => (
-              <figure key={image.alt} className="overflow-hidden rounded-xl border border-[#d2b48d] bg-[#fff7e6] shadow-[0_10px_18px_rgba(15,32,26,0.12)]">
-                <a href={image.src.src} target="_blank" rel="noreferrer" className="block" title="View full image">
-                  <Image src={image.src} alt={image.alt} className="h-32 w-full object-cover" />
-                </a>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="order" className="grid gap-3 lg:grid-cols-[1.35fr_0.92fr]">
+      <section id="order" className="grid gap-2 lg:grid-cols-[1.35fr_0.92fr]">
         <div className="animate-[fadeup_0.55s_ease_forwards] [animation-delay:170ms] rounded-2xl border border-[#c99a61] bg-[#fff8eb] p-4 shadow-[0_12px_20px_rgba(15,32,26,0.18)]">
           <div className="flex items-center justify-between gap-2">
             <h2 className="font-[var(--font-display)] text-3xl font-bold text-[#113f37]">Menu</h2>
@@ -633,6 +613,7 @@ export default function Home() {
                 <label className="grid min-w-[220px] gap-1 text-sm font-semibold text-[#3c3026]">
                   Owner access code
                   <input
+                    type="password"
                     className="rounded-lg border border-[#bf9e74] bg-[#fffdf8] px-3 py-2 text-sm"
                     value={ownerCodeInput}
                     onChange={(event) => setOwnerCodeInput(event.target.value)}
